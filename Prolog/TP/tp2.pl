@@ -142,4 +142,29 @@ replace(List1,Index, Old, New , List2):-replace_aux(List1, Index, Old, New,[], L
 replace_aux([X, Y|Xs], 1, Old, New, LAux, List2):- Old is Y,
                                                    append(LAux,[X, New|Xs], List2).
 replace_aux([X|Xs], Index, Old, New, LAux, List2):- Index1 is Index - 1,
-                                                    replace_aux(Xs, Index1 , Old, New, [X | LAux], List2). 
+                                                    replace_aux(Xs, Index1 , Old, New, [X | LAux], List2).
+
+
+% Questão 7
+
+list_append([],L,L).
+list_append( [X | Xs], L2, [X |L3]) :- list_append(Xs, L2, L3).
+
+list_member(X , [X | T]).
+list_member(Elem, [X | Xs]) :- list_member(Elem, Xs).
+
+list_last([X | []], Res) :- Res is X.
+list_last([X|Xs],Res) :- list_last(Xs, Res).
+
+list_nth( 0, [X | Xs], Res) :- Res is X.
+list_nth(Index, [X|Xs],Res) :-  Index1 is Index - 1,
+                                list_nth(Index1, Xs, Res).
+
+list_append(L1,Res) :- list_append_aux(L1,[],Res).
+list_append_aux([],L,L).
+list_append_aux([X|Xs],Acc,L) :- append(Acc,X,Res),
+                                 list_append_aux(Xs,Res,L). 
+
+
+list_del(L1, X, Res) :- append(La, [X|Lb], L1),
+                        append(La, Lb, Res).                               
